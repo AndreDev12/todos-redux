@@ -1,13 +1,22 @@
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { createSlice } from '@reduxjs/toolkit';
+import { v4 as uuidv4 } from 'uuid';
 
 type InitialStateProps = {
-  task: string;
-  todos: Array<string>;
+  todo: Todo;
+  todos: Array<Todo>;
+};
+
+export type Todo = {
+  id: string;
+  todoName: string;
 };
 
 const initialState: InitialStateProps = {
-  task: '',
+  todo: {
+    id: '',
+    todoName: '',
+  },
   todos: [],
 };
 
@@ -15,14 +24,22 @@ export const todoSlice = createSlice({
   name: 'todo',
   initialState,
   reducers: {
-    addTask: (state, action: PayloadAction<string>) => {
-      state.task = action.payload;
+    addTodo: (state, action: PayloadAction<string>) => {
+      state.todo = {
+        id: uuidv4(),
+        todoName: action.payload,
+      };
     },
     showTodos: (state) => {
-      state.todos = [...state.todos, state.task];
+      state.todos = [...state.todos, state.todo];
+    },
+    removeTodo: (state, action: PayloadAction<string>) => {
+      state.todos = state.todos.filter((todo) => {
+        if (todo.id !== action.payload) return todo;
+      });
     },
   },
 });
 
-export const { addTask, showTodos } = todoSlice.actions;
+export const { addTodo, showTodos, removeTodo } = todoSlice.actions;
 export default todoSlice.reducer;
