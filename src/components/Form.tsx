@@ -1,5 +1,5 @@
-import { useAppDispatch, useAppSelector } from '../app/hooks';
 import { addTodo, showTodos } from '../features/todo/todoSlice';
+import { useAppDispatch, useAppSelector } from '../app/hooks';
 
 export const Form = () => {
   const dispatch = useAppDispatch();
@@ -20,7 +20,7 @@ export const Form = () => {
         onChange={(e) => dispatch(addTodo(e.target.value))}
       />
       <button
-        className="text-white border-[1px] px-2 text-sm font-medium border-[#3b89b9] rounded-sm"
+        className="text-white border-[1px] px-2 text-sm font-bold border-[#3b89b9] rounded-sm hover:bg-white hover:text-[#242526]"
         type="submit"
       >
         Add Todo

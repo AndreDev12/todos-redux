@@ -1,20 +1,15 @@
-import { useState } from 'react';
-
-import { removeTodo } from '../features/todo/todoSlice';
+import { removeTodo, changeTodoState } from '../features/todo/todoSlice';
 import type { Todo } from '../features/todo/todoSlice';
 import { useAppDispatch } from '../app/hooks';
 
-export const TodoItem = ({ todoName, id }: Todo) => {
-  const [isActive, setIsActive] = useState<boolean>(true);
+export const TodoItem = ({ id, todoName, isActive }: Todo) => {
   const dispatch = useAppDispatch();
 
   return (
     <div className="flex justify-between">
       <li
         className={isActive ? 'text-white' : 'text-white line-through'}
-        onClick={() => {
-          setIsActive(!isActive);
-        }}
+        onClick={() => dispatch(changeTodoState(id))}
       >
         {todoName}
       </li>
